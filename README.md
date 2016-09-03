@@ -19,6 +19,8 @@ __Food__ - Tea, Earl Grey, Hot - Epic one-fullness food.
 __Mall__ - Whatever sells for the most. (won't add it to store)  
 __None__ - Replicate nothing.
 
+Far-Future will require a [recent daily build of mafia](http://builds.kolmafia.us/job/Kolmafia/).
+
 Screenshots
 ----------------
 [![Explorer](https://raw.github.com/Ezandora/Far-Future/master/Images/Explorer.png)](https://raw.github.com/Ezandora/Far-Future/master/Images/Explorer.png)
