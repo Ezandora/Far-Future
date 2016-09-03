@@ -1,6 +1,7 @@
 Far-Future
 =====
-Solve the Time-Spinner Far Future mini-game in Kingdom of Loathing.
+Solve the Time-Spinner [Far Future](http://kol.coldfront.net/thekolwiki/index.php/The_Far_Future)
+ mini-game in [Kingdom of Loathing](http://www.kingdomofloathing.com).
 
 How do I use it?
 ----------------
@@ -19,7 +20,13 @@ __Food__ - Tea, Earl Grey, Hot - Epic one-fullness food.
 __Mall__ - Whatever sells for the most. (won't add it to store)  
 __None__ - Replicate nothing.
 
+So, running "FarFuture food" will play through the far-future mini-game once, collecting two medals and a nice cup of tea.
+
 Far Future will require a [recent daily build of mafia](http://builds.kolmafia.us/job/Kolmafia/).
+
+What does it do?
+----------------
+The [Far Future](http://kol.coldfront.net/thekolwiki/index.php/The_Far_Future) mini-game lets you captain a starship about to fall apart in the span of an episode. This script will automatically earn two medals against the five different adversaries - borg, emoticons, klingons, cloud, and crystals - while replicating your once/day item.
 
 Screenshots
 ----------------
