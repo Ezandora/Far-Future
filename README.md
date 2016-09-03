@@ -26,7 +26,7 @@ Far Future will require a [recent daily build of mafia](http://builds.kolmafia.u
 
 What does it do?
 ----------------
-The [Far Future](http://kol.coldfront.net/thekolwiki/index.php/The_Far_Future) mini-game lets you captain a starship about to fall apart in the span of an episode. This script will automatically earn two medals against the five different adversaries - borg, emoticons, klingons, cloud, and crystals - while replicating your once/day item.
+The [Far Future](http://kol.coldfront.net/thekolwiki/index.php/The_Far_Future) mini-game lets you captain a starship about to fall apart in the span of an episode. This script will automatically earn two medals against the five different adversaries - the borg, emoticons, klingons, a cloud, and crystals - while replicating your once/day item.
 
 Screenshots
 ----------------
