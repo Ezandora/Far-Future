@@ -10,7 +10,7 @@ First, install it by running this command in KoLmafia's graphical CLI:
 svn checkout https://github.com/Ezandora/Far-Future/branches/Release/
 </pre>
 
-Then run Scripts Menu > FarFuture.ash. (if it doesn't show up, first try Scripts Menu > Refresh menu.) Or type "FarFuture.ash". It takes one argument, the item you want to replicate:
+Then run Scripts Menu > FarFuture.ash. (if it doesn't show up, first try Scripts Menu > Refresh menu.) Or type "FarFuture". It takes one argument, the item you want to replicate:
 
 __Memory__ - Memory Disk, Alpha - Sell in mall for others to play the game.  
 __Ears__ - Unstable Pointy Ears - +3 stats/fight accessory.  
@@ -19,7 +19,7 @@ __Food__ - Tea, Earl Grey, Hot - Epic one-fullness food.
 __Mall__ - Whatever sells for the most. (won't add it to store)  
 __None__ - Replicate nothing.
 
-Far-Future will require a [recent daily build of mafia](http://builds.kolmafia.us/job/Kolmafia/).
+Far Future will require a [recent daily build of mafia](http://builds.kolmafia.us/job/Kolmafia/).
 
 Screenshots
 ----------------
