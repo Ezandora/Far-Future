@@ -28,6 +28,8 @@ What does it do?
 ----------------
 The [Far Future](http://kol.coldfront.net/thekolwiki/index.php/The_Far_Future) mini-game lets you captain a starship about to fall apart in the span of an episode. This script will automatically earn two medals against the five different adversaries - the borg, emoticons, klingons, a cloud, and crystals - while replicating your once/day item.
 
+If you don't have the trophy yet, this script will earn it after enough playthroughs.
+
 Screenshots
 ----------------
 [![Explorer](https://raw.github.com/Ezandora/Far-Future/master/Images/Explorer.png)](https://raw.github.com/Ezandora/Far-Future/master/Images/Explorer.png)
