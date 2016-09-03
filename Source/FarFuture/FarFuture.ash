@@ -80,6 +80,8 @@ void main(string desired_item_name)
         __item_desired_to_replicate = $item[Unstable Pointy Ears];
     else if (desired_item_name.contains_text("kanar") || desired_item_name.contains_text("cardassian") || desired_item_name.contains_text("kardashian") || desired_item_name.contains_text("gin") || desired_item_name.contains_text("booze") || desired_item_name.contains_text("drink") || desired_item_name.contains_text("alcohol") || desired_item_name.contains_text("shot"))
         __item_desired_to_replicate = $item[Shot of Kardashian Gin];
+    else if (desired_item_name.contains_text("history") || desired_item_name.contains_text("riker") || desired_item_name.contains_text("googling") || desired_item_name.contains_text("search"))
+        __item_desired_to_replicate = $item[Riker's Search History];
     else if (desired_item_name.contains_text("mall") || desired_item_name.contains_text("whatever") || desired_item_name.contains_text("idk"))
     {
         foreach it in $items[memory disk\, alpha,Unstable Pointy Ears,Shot of Kardashian Gin,Riker's Search History,Tea\, Earl Grey\, Hot]
@@ -97,10 +99,11 @@ void main(string desired_item_name)
     if ((desired_item_name == " " || desired_item_name == "") && !get_property_boolean("_futureReplicatorUsed")) //FIXME whatever this is named
     {
         print_html("Are you sure you don't want to replicate anything? Options:");
-        print_html("<b>memory</b> - Memory Disk, Alpha - Sell in mall for others to play the game.");
-        print_html("<b>ears</b> - Unstable Pointy Ears - +3 stats/fight accessory");
         print_html("<b>drink</b> - Shot of Kardashian Gin - Epic one-drunkenness drink, gives PVP fights");
         print_html("<b>food</b> - Tea, Earl Grey, Hot - Epic one-fullness food");
+        print_html("<b>memory</b> - Memory Disk, Alpha - Sell in mall for others to play the game.");
+        print_html("<b>history</b> - Riker's Search History - combat item, deals ~950 sleaze damage.");
+        print_html("<b>ears</b> - Unstable Pointy Ears - +3 stats/fight accessory");
         print_html("<b>mall</b> - Whatever sells for the most. (won't add it to store)");
         print_html("&nbsp;");
         print_html("<b>none</b> - Yes, I'm certain I don't want to replicate anything.");
