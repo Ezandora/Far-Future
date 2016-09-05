@@ -16,7 +16,20 @@ string BorgChooseNextAction(GameState state)
                 return tryToReachLocation(state, LOCATION_ENGINEERING);
             else if (state.sublocation == "")
             {
-                return findOptionMatchingSubstrings(state, "Speak to " + state.occupations_to_names["Chief Engineer"]);
+                if (state.occupations_to_names["Chief Engineer"] == "")
+                {
+                    //@ffa_ishere@ bug
+                    foreach s in $strings[Johnny,Jicky,Dobby,Lonny,Tommy,Robby,Dougy,Ronny] //FIXME don't know if that's all of them
+                    {
+                        string match = findOptionMatchingSubstrings(state, "Speak to " + s);
+                        if (match != "")
+                            return match;
+                    }
+                    print("@ffa_ishere@ bug active, can't continue");
+                    return "";
+                }
+                else
+                    return findOptionMatchingSubstrings(state, "Speak to " + state.occupations_to_names["Chief Engineer"]);
             }
             else if (state.sublocation == "conversation_jicky_main")
             {
