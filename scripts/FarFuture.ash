@@ -2,7 +2,7 @@
 //This script is in the public domain.
 
 since r17163;
-string __version = "1.0.1";
+string __version = "1.0.2";
 
 boolean __setting_debug = false;
 //These settings only work when __setting_debug is true:
@@ -34,6 +34,7 @@ int ITEM_VISOR = 1;
 int ITEM_FLUTE = 2;
 int ITEM_DRINK = 3;
 int ITEM_PHASER = 4;
+int ITEM_TRICORDER = 5;
 
 int SKILL_TYPE_NONE = 0;
 int SKILL_TYPE_HACKING = 1;
@@ -1061,12 +1062,13 @@ string tryToAcquireItem(GameState state, int item_type)
         }
     }
     //FIXME we should support collecting the phaser from riker, but none of the peaceful solutions require it, so...
+    //Same for the tricorder, which was never even mentioned anywhere in v1.0 of this script, because I forgot about it.
     return "";
 }
 
 string reassureCrewWithCleverLies(GameState state)
 {
-    //Talk to uhura:
+    //Talk to Uhura:
     if (state.current_location != LOCATION_BRIDGE)
         return tryToReachLocation(state, LOCATION_BRIDGE);
     else
@@ -1155,7 +1157,6 @@ string CloudChooseNextAction(GameState state)
     Waste time until 40.
     Go to bridge, page troi, give her the drink, choose the right option.
     */
-    //oops
     
     if (state.lies_told_crew != TOLD_CREW_ICE_CREAM_AND_PROBABLY_WILL_SURVIVE)
     {
@@ -1185,6 +1186,13 @@ string CloudChooseNextAction(GameState state)
             return tryToReachLocation(state, LOCATION_BRIDGE);
         else if (state.sublocation == "")
         {
+            //Deal with @ffa_ishere@ bug:
+            string match = findOptionMatchingSubstrings(state, "Speak to Counselor");
+            if (match != "")
+                return match;
+            match = findOptionMatchingSubstrings(state, "Speak to Morale Officer");
+            if (match != "")
+                return match;
             //Is troi here? Talk to her. Otherwise, page her.
             if (state.occupations_to_last_seen_locations["Ship's Counselor"] == LOCATION_BRIDGE)
             {
@@ -1192,7 +1200,7 @@ string CloudChooseNextAction(GameState state)
                     return "Wait a minute";
                 else
                 {
-                    string match = findOptionMatchingSubstrings(state, "Speak to " + state.occupations_to_names["Ship's Counselor"]);
+                    match = findOptionMatchingSubstrings(state, "Speak to " + state.occupations_to_names["Ship's Counselor"]);
                     if (match != "")
                         return match;
                     else //page troi - she was on the bridge, but left
@@ -1221,7 +1229,10 @@ string CloudChooseNextAction(GameState state)
                 if (match == "")
                     match = findOptionMatchingSubstrings(state, "Please page Morale Officer");
                 if (match == "")
-                    abort("unimplemented: can't find option to page the Counselor");
+                {
+                    //maybe she's there already?
+                    return tryToReachLocation(state, LOCATION_BRIDGE);
+                }
                 return match;
             }
         }
@@ -1561,7 +1572,7 @@ string chooseAndExecuteAction(GameState state)
 	//Is there an item here we can pick up, and we don't have anything? Might as well grab it, doesn't cost any minutes.
 	if (state.item_currently_carrying == ITEM_NONE)
 	{
-		//This should probably support the phaser and the visor, but we don't need those.
+		//This should probably support the phaser, the visor, and the tricorder, but we don't need those.
 		foreach option_name in $strings[Take the flute]
 		{
 			if (state.current_button_choices contains option_name)
