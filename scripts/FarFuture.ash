@@ -1110,7 +1110,7 @@ string BorgChooseNextAction(GameState state)
                     //@ffa_ishere@ bug
                     foreach s in $strings[Johnny,Jicky,Dobby,Lonny,Tommy,Robby,Dougy,Ronny] //FIXME don't know if that's all of them
                     {
-                        string match = findOptionMatchingSubstrings(state, "Speak to " + s;
+                        string match = findOptionMatchingSubstrings(state, "Speak to " + s);
                         if (match != "")
                             return match;
                     }
