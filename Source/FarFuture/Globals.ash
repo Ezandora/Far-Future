@@ -1,5 +1,5 @@
 since r17163;
-string __version = "1.0.1";
+string __version = "1.0.2";
 
 boolean __setting_debug = false;
 //These settings only work when __setting_debug is true:
@@ -31,6 +31,7 @@ int ITEM_VISOR = 1;
 int ITEM_FLUTE = 2;
 int ITEM_DRINK = 3;
 int ITEM_PHASER = 4;
+int ITEM_TRICORDER = 5;
 
 int SKILL_TYPE_NONE = 0;
 int SKILL_TYPE_HACKING = 1;

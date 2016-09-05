@@ -166,12 +166,13 @@ string tryToAcquireItem(GameState state, int item_type)
         }
     }
     //FIXME we should support collecting the phaser from riker, but none of the peaceful solutions require it, so...
+    //Same for the tricorder, which was never even mentioned anywhere in v1.0 of this script, because I forgot about it.
     return "";
 }
 
 string reassureCrewWithCleverLies(GameState state)
 {
-    //Talk to uhura:
+    //Talk to Uhura:
     if (state.current_location != LOCATION_BRIDGE)
         return tryToReachLocation(state, LOCATION_BRIDGE);
     else

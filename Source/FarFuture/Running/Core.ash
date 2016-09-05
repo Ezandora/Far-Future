@@ -92,7 +92,7 @@ string chooseAndExecuteAction(GameState state)
 	//Is there an item here we can pick up, and we don't have anything? Might as well grab it, doesn't cost any minutes.
 	if (state.item_currently_carrying == ITEM_NONE)
 	{
-		//This should probably support the phaser and the visor, but we don't need those.
+		//This should probably support the phaser, the visor, and the tricorder, but we don't need those.
 		foreach option_name in $strings[Take the flute]
 		{
 			if (state.current_button_choices contains option_name)

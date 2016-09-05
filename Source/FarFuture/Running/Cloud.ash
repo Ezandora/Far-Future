@@ -8,7 +8,6 @@ string CloudChooseNextAction(GameState state)
     Waste time until 40.
     Go to bridge, page troi, give her the drink, choose the right option.
     */
-    //oops
     
     if (state.lies_told_crew != TOLD_CREW_ICE_CREAM_AND_PROBABLY_WILL_SURVIVE)
     {
@@ -38,6 +37,13 @@ string CloudChooseNextAction(GameState state)
             return tryToReachLocation(state, LOCATION_BRIDGE);
         else if (state.sublocation == "")
         {
+            //Deal with @ffa_ishere@ bug:
+            string match = findOptionMatchingSubstrings(state, "Speak to Counselor");
+            if (match != "")
+                return match;
+            match = findOptionMatchingSubstrings(state, "Speak to Morale Officer");
+            if (match != "")
+                return match;
             //Is troi here? Talk to her. Otherwise, page her.
             if (state.occupations_to_last_seen_locations["Ship's Counselor"] == LOCATION_BRIDGE)
             {
@@ -45,7 +51,7 @@ string CloudChooseNextAction(GameState state)
                     return "Wait a minute";
                 else
                 {
-                    string match = findOptionMatchingSubstrings(state, "Speak to " + state.occupations_to_names["Ship's Counselor"]);
+                    match = findOptionMatchingSubstrings(state, "Speak to " + state.occupations_to_names["Ship's Counselor"]);
                     if (match != "")
                         return match;
                     else //page troi - she was on the bridge, but left
@@ -74,7 +80,10 @@ string CloudChooseNextAction(GameState state)
                 if (match == "")
                     match = findOptionMatchingSubstrings(state, "Please page Morale Officer");
                 if (match == "")
-                    abort("unimplemented: can't find option to page the Counselor");
+                {
+                    //maybe she's there already?
+                    return tryToReachLocation(state, LOCATION_BRIDGE);
+                }
                 return match;
             }
         }
