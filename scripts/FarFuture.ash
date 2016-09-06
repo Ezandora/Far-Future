@@ -2,7 +2,7 @@
 //This script is in the public domain.
 
 since r17163;
-string __version = "1.0.4";
+string __version = "1.0.5";
 
 boolean __setting_debug = false;
 //These settings only work when __setting_debug is true:
@@ -586,7 +586,7 @@ void processIntroMessages(GameState state, string [int] messages)
 		{
 			state.sublocation = "";
 		}
-        else if (message.contains_text("You sit at the weapons console.  It looks the torpedo bay is empty, but phasers are ready to fire."))
+        else if (message.contains_text("You sit at the weapons console.  It looks like the torpedo bay is empty, but phasers are ready to fire.") || message.contains_text("You sit at the weapons console.  It looks like the torpedo bay is empty, but phasers are ready to fire."))
             state.sublocation = "weapons_console";
 		else if (message.contains_text("You are in ") && message.contains_text("'s quarters."))
         {
@@ -1754,7 +1754,8 @@ void main(string desired_item_name)
                 else
                     use_memory_disk_alpha = true;
             }
-            return;
+            else
+                return;
         }
         //Start game:
         if (use_memory_disk_alpha)
