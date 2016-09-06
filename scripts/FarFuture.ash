@@ -2,7 +2,7 @@
 //This script is in the public domain.
 
 since r17163;
-string __version = "1.0.3";
+string __version = "1.0.4";
 
 boolean __setting_debug = false;
 //These settings only work when __setting_debug is true:
@@ -567,7 +567,7 @@ Unrecognised blue message " You are holding a Federation-Issue Phaser.<br>You ar
 			state.skill_levels[SKILL_TYPE_GUNNER] = SKILL_LEVEL_AMAZING;
 		else if (message.contains_text("You are amazing with a phaser."))
 			state.skill_levels[SKILL_TYPE_PHASER] = SKILL_LEVEL_AMAZING;
-		else if (message.contains_text("You are an amazing floutist."))
+		else if (message.contains_text("You are an amazing floutist.") || message.contains_text("You are an amazing flautist."))
 			state.skill_levels[SKILL_TYPE_FLUTE] = SKILL_LEVEL_AMAZING;
 		else
         {
@@ -1720,7 +1720,7 @@ void main(string desired_item_name)
         if ($items[memory disk\, alpha,Unstable Pointy Ears,Shot of Kardashian Gin,Riker's Search History,Tea\, Earl Grey\, Hot] contains converted)
             __item_desired_to_replicate = converted;
     }
-    if ((desired_item_name == " " || desired_item_name == "") && !get_property_boolean("_futureReplicatorUsed")) //FIXME whatever this is named
+    if ((desired_item_name == " " || desired_item_name == "" || desired_item_name == "help" || desired_item_name == "list") && !get_property_boolean("_futureReplicatorUsed"))
     {
         print_html("Are you sure you don't want to replicate anything? Options:");
         print_html("<b>drink</b> - Shot of Kardashian Gin - Epic one-drunkenness drink, gives PVP fights");
