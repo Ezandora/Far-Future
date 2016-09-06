@@ -96,7 +96,7 @@ void main(string desired_item_name)
         if ($items[memory disk\, alpha,Unstable Pointy Ears,Shot of Kardashian Gin,Riker's Search History,Tea\, Earl Grey\, Hot] contains converted)
             __item_desired_to_replicate = converted;
     }
-    if ((desired_item_name == " " || desired_item_name == "") && !get_property_boolean("_futureReplicatorUsed")) //FIXME whatever this is named
+    if ((desired_item_name == " " || desired_item_name == "" || desired_item_name == "help" || desired_item_name == "list") && !get_property_boolean("_futureReplicatorUsed"))
     {
         print_html("Are you sure you don't want to replicate anything? Options:");
         print_html("<b>drink</b> - Shot of Kardashian Gin - Epic one-drunkenness drink, gives PVP fights");

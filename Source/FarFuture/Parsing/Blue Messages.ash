@@ -43,7 +43,7 @@ Unrecognised blue message " You are holding a Federation-Issue Phaser.<br>You ar
 			state.skill_levels[SKILL_TYPE_GUNNER] = SKILL_LEVEL_AMAZING;
 		else if (message.contains_text("You are amazing with a phaser."))
 			state.skill_levels[SKILL_TYPE_PHASER] = SKILL_LEVEL_AMAZING;
-		else if (message.contains_text("You are an amazing floutist."))
+		else if (message.contains_text("You are an amazing floutist.") || message.contains_text("You are an amazing flautist."))
 			state.skill_levels[SKILL_TYPE_FLUTE] = SKILL_LEVEL_AMAZING;
 		else
         {
