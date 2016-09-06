@@ -130,7 +130,8 @@ void main(string desired_item_name)
                 else
                     use_memory_disk_alpha = true;
             }
-            return;
+            else
+                return;
         }
         //Start game:
         if (use_memory_disk_alpha)
