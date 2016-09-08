@@ -1,5 +1,5 @@
 since r17163;
-string __version = "1.0.5";
+string __version = "1.0.6";
 
 boolean __setting_debug = false;
 //These settings only work when __setting_debug is true:

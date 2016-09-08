@@ -6,7 +6,7 @@ void processIntroMessages(GameState state, string [int] messages)
 		{
 			state.sublocation = "";
 		}
-        else if (message.contains_text("You sit at the weapons console.  It looks like the torpedo bay is empty, but phasers are ready to fire.") || message.contains_text("You sit at the weapons console.  It looks like the torpedo bay is empty, but phasers are ready to fire."))
+        else if (message.contains_text("You sit at the weapons console.  It looks the torpedo bay is empty, but phasers are ready to fire.") || message.contains_text("You sit at the weapons console.  It looks like the torpedo bay is empty, but phasers are ready to fire."))
             state.sublocation = "weapons_console";
 		else if (message.contains_text("You are in ") && message.contains_text("'s quarters."))
         {

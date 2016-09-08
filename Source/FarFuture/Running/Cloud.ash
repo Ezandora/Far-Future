@@ -19,7 +19,7 @@ string CloudChooseNextAction(GameState state)
     }
     else
     {
-        if (state.minutes_in < 39)
+        if (state.minutes_in < 40)
         {
             if (state.minutes_in < 34)
             {
