@@ -2,7 +2,7 @@
 //This script is in the public domain.
 
 since r17163;
-string __version = "1.0.5";
+string __version = "1.0.6";
 
 boolean __setting_debug = false;
 //These settings only work when __setting_debug is true:
@@ -586,7 +586,7 @@ void processIntroMessages(GameState state, string [int] messages)
 		{
 			state.sublocation = "";
 		}
-        else if (message.contains_text("You sit at the weapons console.  It looks like the torpedo bay is empty, but phasers are ready to fire.") || message.contains_text("You sit at the weapons console.  It looks like the torpedo bay is empty, but phasers are ready to fire."))
+        else if (message.contains_text("You sit at the weapons console.  It looks the torpedo bay is empty, but phasers are ready to fire.") || message.contains_text("You sit at the weapons console.  It looks like the torpedo bay is empty, but phasers are ready to fire."))
             state.sublocation = "weapons_console";
 		else if (message.contains_text("You are in ") && message.contains_text("'s quarters."))
         {
@@ -1181,7 +1181,7 @@ string CloudChooseNextAction(GameState state)
     }
     else
     {
-        if (state.minutes_in < 39)
+        if (state.minutes_in < 40)
         {
             if (state.minutes_in < 34)
             {
