@@ -18,7 +18,7 @@ __Food__ - Tea, Earl Grey, Hot - Epic one-fullness food.
 __Memory__ - Memory Disk, Alpha - Sell in mall for others to play the game.  
 __History__ - Riker's Search History - combat item, deals ~950 sleaze damage.  
 __Ears__ - Unstable Pointy Ears - +3 stats/fight accessory.  
-__Mall__ - Whatever sells for the most. (won't add it to store)  
+__Mall__ - Whatever sells for the most. (will add it to store)  
 __None__ - Replicate nothing.
 
 So, running "FarFuture food" will play through the far-future mini-game once, collecting two medals and a nice cup of tea.
