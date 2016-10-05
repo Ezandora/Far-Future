@@ -2,7 +2,7 @@
 //This script is in the public domain.
 
 since r17163;
-string __version = "1.0.6";
+string __version = "1.0.7";
 
 boolean __setting_debug = false;
 //These settings only work when __setting_debug is true:
@@ -1696,23 +1696,39 @@ void main(string desired_item_name)
 	}
     desired_item_name = desired_item_name.to_lower_case();
     
+    int medals = get_property_int("timeSpinnerMedals");
+    if (medals == 0) //just assume they haven't had this property read yet, or are on an older version
+        medals = 20;
+    
+    boolean should_mallsell_replicated_item = false;
     if (desired_item_name.contains_text("memory") || desired_item_name.contains_text("alpha") || desired_item_name.contains_text("disk"))
         __item_desired_to_replicate = $item[Memory Disk, Alpha];
     else if (desired_item_name.contains_text("tea") || desired_item_name.contains_text("food") || desired_item_name.contains_text("earl grey"))
         __item_desired_to_replicate = $item[Tea, Earl Grey, Hot];
     else if (desired_item_name.contains_text("ears") || desired_item_name.contains_text("unstable") || desired_item_name.contains_text("pointy") || desired_item_name.contains_text("spock") || desired_item_name.contains_text("vulcan"))
         __item_desired_to_replicate = $item[Unstable Pointy Ears];
-    else if (desired_item_name.contains_text("kanar") || desired_item_name.contains_text("cardassian") || desired_item_name.contains_text("kardashian") || desired_item_name.contains_text("gin") || desired_item_name.contains_text("booze") || desired_item_name.contains_text("drink") || desired_item_name.contains_text("alcohol") || desired_item_name.contains_text("shot"))
+    else if (desired_item_name.contains_text("kanar") || desired_item_name.contains_text("cardassian") || desired_item_name.contains_text("kardashian") || desired_item_name.contains_text("gin") || desired_item_name.contains_text("booze") || desired_item_name.contains_text("drink") || desired_item_name.contains_text("alcohol") || desired_item_name.contains_text("shot") || desired_item_name.contains_text("pvp"))
         __item_desired_to_replicate = $item[Shot of Kardashian Gin];
     else if (desired_item_name.contains_text("history") || desired_item_name.contains_text("riker") || desired_item_name.contains_text("googling") || desired_item_name.contains_text("search"))
         __item_desired_to_replicate = $item[Riker's Search History];
     else if (desired_item_name.contains_text("mall") || desired_item_name.contains_text("whatever") || desired_item_name.contains_text("idk"))
     {
-        foreach it in $items[memory disk\, alpha,Unstable Pointy Ears,Shot of Kardashian Gin,Riker's Search History,Tea\, Earl Grey\, Hot]
+        boolean [item] replicable_items;
+        if (medals >= 5)
+            replicable_items[$item[Shot of Kardashian Gin]] = true;
+        if (medals >= 10)
+            replicable_items[$item[Riker's Search History]] = true;
+        if (medals >= 15)
+            replicable_items[$item[Tea\, Earl Grey\, Hot]] = true;
+        if (medals >= 20)
+            replicable_items[$item[memory disk\, alpha]] = true;
+        
+        foreach it in replicable_items
         {
             if (__item_desired_to_replicate.mall_price() < it.mall_price())
                 __item_desired_to_replicate = it;
         }
+        should_mallsell_replicated_item = true;
     }
     if (desired_item_name.is_integer())
     {
@@ -1723,12 +1739,16 @@ void main(string desired_item_name)
     if ((desired_item_name == " " || desired_item_name == "" || desired_item_name == "help" || desired_item_name == "list") && !get_property_boolean("_futureReplicatorUsed"))
     {
         print_html("Are you sure you don't want to replicate anything? Options:");
-        print_html("<b>drink</b> - Shot of Kardashian Gin - Epic one-drunkenness drink, gives PVP fights");
-        print_html("<b>food</b> - Tea, Earl Grey, Hot - Epic one-fullness food");
-        print_html("<b>memory</b> - Memory Disk, Alpha - Sell in mall for others to play the game.");
-        print_html("<b>history</b> - Riker's Search History - combat item, deals ~950 sleaze damage.");
+        if (medals >= 5)
+            print_html("<b>drink</b> - Shot of Kardashian Gin - Epic one-drunkenness drink, gives PVP fights");
+        if (medals >= 15)
+            print_html("<b>food</b> - Tea, Earl Grey, Hot - Epic one-fullness food");
+        if (medals >= 20)
+            print_html("<b>memory</b> - Memory Disk, Alpha - Sell in mall for others to play the game.");
+        if (medals >= 10)
+            print_html("<b>history</b> - Riker's Search History - combat item, deals ~950 sleaze damage.");
         print_html("<b>ears</b> - Unstable Pointy Ears - +3 stats/fight accessory");
-        print_html("<b>mall</b> - Whatever sells for the most. (won't add it to store)");
+        print_html("<b>mall</b> - Whatever sells for the most. (will add it to store)");
         print_html("&nbsp;");
         print_html("<b>none</b> - Yes, I'm certain I don't want to replicate anything.");
         return;
@@ -1737,6 +1757,8 @@ void main(string desired_item_name)
     {
         print_html("Sorry, don't know how to make \"" + desired_item_name + "\".");
     }
+    
+    int starting_amount_of_replicated_item = __item_desired_to_replicate.item_amount();
 	
 	//Are we in a game?
     string page_text = visit_url("choice.php");
@@ -1782,4 +1804,8 @@ void main(string desired_item_name)
         }
     }
 	runGame();
+    if (should_mallsell_replicated_item && __item_desired_to_replicate.item_amount() > starting_amount_of_replicated_item && __item_desired_to_replicate.item_amount() > 0 && have_shop() && __item_desired_to_replicate != $item[none])
+    {
+        put_shop(__item_desired_to_replicate.mall_price(), 0, 1, __item_desired_to_replicate);
+    }
 }
