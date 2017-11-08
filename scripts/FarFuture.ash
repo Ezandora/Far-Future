@@ -2,7 +2,7 @@
 //This script is in the public domain.
 
 since r17163;
-string __version = "1.0.7";
+string __version = "1.0.8";
 
 boolean __setting_debug = false;
 //These settings only work when __setting_debug is true:
@@ -1642,9 +1642,25 @@ void runGame()
     int limit = 100;
     if (__setting_debug && __setting_one_turn_at_a_time)
         limit = 1;
-	while (true)
+    int wait_iterations = 0;
+    int wait_limit = 20;
+	while (iterations < limit)
 	{
         iterations += 1;
+		if (page_text.length() == 0)
+        {
+        	//Probably a 502 error - delay:
+         	if (wait_iterations >= wait_limit)
+          	{
+           		abort("Unable to load choice.php. The future refused to change.");
+             	break;         
+           	}         
+            wait_iterations += 1;
+         	print("Page didn't load - waiting 30s and retrying...", "red");
+         	wait(30);
+          	page_text = visit_url("choice.php");
+            continue;
+        }
 		//Parse page text:
         
         string medals_earned_string = page_text.group_string("at least I have the memory of earning <b>([0-9]*) medals</b> in the future.")[0][1];
