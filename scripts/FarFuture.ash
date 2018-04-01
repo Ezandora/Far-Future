@@ -2,7 +2,7 @@
 //This script is in the public domain.
 
 since r17163;
-string __version = "1.0.8";
+string __version = "1.0.9";
 
 boolean __setting_debug = false;
 //These settings only work when __setting_debug is true:
@@ -615,7 +615,8 @@ void processIntroMessages(GameState state, string [int] messages)
                 state.fired_amazing_warning_shot = true;
             }
         }
-		else if (message.contains_text("Space: the final frontier. These are the voyages of the Starship..."))
+		//else if (message.contains_text("Space: the final frontier. These are the voyages of the Starship..."))
+        else if (message.contains_text("Space: the final frontier."))
 		{
 			state.sublocation = "intro";
 		}
@@ -681,7 +682,8 @@ void processIntroMessages(GameState state, string [int] messages)
         {
             state.sublocation = "quarters_replicator";
         }
-        else if (message.contains_text("We heard that your ancients are off the ship right now so we're going to come over for a spacekegger and party until the spacecows come home k that's cool right"))
+        //else if (message.contains_text("We heard that your ancients are off the ship right now so we're going to come over for a spacekegger and party until the spacecows come home k that's cool right"))
+        else if (message.contains_text("so we're going to come over for a spacekegger"))
         {
 			state.sublocation = "emoticon_intro_1";
 			state.alien_race_type = ALIEN_RACE_EMOTICONS;
@@ -720,7 +722,7 @@ void processIntroMessages(GameState state, string [int] messages)
         {
             state.gave_troi_alcohol = true;
         }
-        else if (message.contains_text("Like magic, an item appears in the replicator.") || message.contains_text("Looks like the convoluted nature of time-travel has caught up with you and your daily replicator credit is still used up from the last time you were in the far-future"))
+        else if (message.contains_text("Like magic, an item appears in the replicator.") || message.contains_text("your daily replicator credit is still used up")) //message.contains_text("Looks like the convoluted nature of time-travel has caught up with you and your daily replicator credit is still used up from the last time you were in the far-future"))
         {
             state.used_replicator = true;
         }
@@ -1644,10 +1646,11 @@ void runGame()
         limit = 1;
     int wait_iterations = 0;
     int wait_limit = 20;
+    boolean last_was_salad = false;
 	while (iterations < limit)
 	{
         iterations += 1;
-		if (page_text.length() == 0)
+		if (page_text.length() == 0 && !last_was_salad)
         {
         	//Probably a 502 error - delay:
          	if (wait_iterations >= wait_limit)
@@ -1661,10 +1664,17 @@ void runGame()
           	page_text = visit_url("choice.php");
             continue;
         }
+        if (last_was_salad && page_text.length() == 0)
+        {
+        	print_html("<font color=\"green\">Having salad problems, retrying...</font>");
+        	page_text = visit_url("choice.php");
+            limit = 1000;
+        }
 		//Parse page text:
+        last_was_salad = false;
         
         string medals_earned_string = page_text.group_string("at least I have the memory of earning <b>([0-9]*) medals</b> in the future.")[0][1];
-        if (medals_earned_string.length() > 0)
+        if (medals_earned_string.length() > 0 || page_text.contains_text("the memory of earning") || page_text.contains_text("at least I have the memory"))
         {
             string text;
             if (page_text.contains_text("is pinning a second medal to your uniform"))
@@ -1695,7 +1705,12 @@ void runGame()
         if (iterations > limit)
             break;
 		
-		page_text = chooseAndExecuteAction(state);
+        if (page_text.to_lower_case().contains_text("salad"))
+        {
+        	last_was_salad = true;
+        }
+        
+        page_text = chooseAndExecuteAction(state);
         writeFileState(state);
         if (__setting_debug)
             printSilent("state = " + state.to_json().stringAddSpacersEvery(150), "grey");
