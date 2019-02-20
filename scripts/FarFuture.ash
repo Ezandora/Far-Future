@@ -2,7 +2,7 @@
 //This script is in the public domain.
 
 since r17163;
-string __version = "1.0.9";
+string __version = "1.0.10";
 
 boolean __setting_debug = false;
 //These settings only work when __setting_debug is true:
@@ -1796,6 +1796,10 @@ void main(string desired_item_name)
     if (!page_text.contains_text("Starship ") && !page_text.contains_text("blue><b>The Far Future")) //hack
     {
         boolean use_memory_disk_alpha = false;
+        if ($item[time-spinner].item_amount() == 0 && $item[time-spinner].storage_amount() > 0 && can_interact())
+        {
+        	cli_execute("pull time-spinner");
+        }
         if ($item[time-spinner].item_amount() == 0)
         {
             print("You don't seem to have a time-spinner.");
