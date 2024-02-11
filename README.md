@@ -8,7 +8,7 @@ How do I use it?
 First, install it by running this command in KoLmafia's graphical CLI:
 
 <pre>
-svn checkout https://github.com/Ezandora/Far-Future/branches/Release/
+git checkout https://github.com/Ezandora/Far-Future.git
 </pre>
 
 Then run Scripts Menu > FarFuture.ash. (if it doesn't show up, first try Scripts Menu > Refresh menu.) Or type "FarFuture". It takes one argument, the item you want to replicate:
