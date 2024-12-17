@@ -2,7 +2,7 @@
 //This script is in the public domain.
 
 since r17163;
-string __version = "1.0.10";
+string __version = "1.0.11";
 
 boolean __setting_debug = false;
 //These settings only work when __setting_debug is true:
@@ -71,6 +71,10 @@ void printSilent(string line)
     print_html(line.entity_encode());
 }
 
+boolean stringMatchesRegex(string str, string regex)
+{
+	return group_string(str, regex).count() > 0;
+}
 
 string stringAddSpacersEvery(string s, int distance)
 {
@@ -805,11 +809,12 @@ void tryToRecogniseSublocation(GameState state)
 //An alternative would be manually blanking out every field, but that requires upkeep.
 GameState parsePageText(GameState state, string page_text)
 {
-	string title = page_text.group_string("<td style=.color: white;. align=center bgcolor=blue><b>([^<]*)")[0][1];
-	//print_html("title = \"" + title + "\"");
+	//if (__setting_debug) print_html("parsePageText(" + page_text.entity_encode() + ")");
+	string title = page_text.group_string("<td style=[^>]*><b[^>]*>([^<]*)")[0][1];
+	if (__setting_debug) print_html("title = \"" + title + "\"");
 	
 	string [int][int] title_split = title.group_string("Starship (.*?) :: (.*)");
-	if (title_split.count() == 0 && !page_text.contains_text("blue><b>The Far Future"))
+	if (title_split.count() == 0 && !page_text.stringMatchesRegex("<b[^>]*>The Far Future"))
     {
         state.invalid = true;
 		return state;
@@ -1793,7 +1798,7 @@ void main(string desired_item_name)
 	
 	//Are we in a game?
     string page_text = visit_url("choice.php");
-    if (!page_text.contains_text("Starship ") && !page_text.contains_text("blue><b>The Far Future")) //hack
+    if (!page_text.contains_text("Starship ") && !page_text.stringMatchesRegex("<b[^>]*>The Far Future")) //hack
     {
         boolean use_memory_disk_alpha = false;
         if ($item[time-spinner].item_amount() == 0 && $item[time-spinner].storage_amount() > 0 && can_interact())
